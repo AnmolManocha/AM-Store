@@ -10,7 +10,7 @@ import Rating from '../components/Rating'
 function ProductScreen() {
   const params = useParams()
   const navigate = useNavigate()
-  const [qty, setQty] = useState(0)
+  const [qty, setQty] = useState(1)
 
   const dispatch = useDispatch()
 
