@@ -28,7 +28,7 @@ function LoginScreen() {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(login(email, password))
+    dispatch(login(email.toLowerCase(), password))
   }
 
   return (
