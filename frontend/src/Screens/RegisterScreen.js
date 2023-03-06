@@ -38,6 +38,9 @@ function RegisterScreen() {
     }
   }
 
+  const passwordMatch = confirmPassword === password
+  const passwordValid = password !== '' && passwordMatch
+
   return (
     <FormContainer>
       <h1>Sign Up</h1>
@@ -72,6 +75,7 @@ function RegisterScreen() {
             placeholder='Enter your password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            isValid={passwordValid}
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='confirmPassword' className='pb-3'>
@@ -81,7 +85,12 @@ function RegisterScreen() {
             placeholder='Confirm Password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            isInvalid={!passwordMatch}
+            isValid={passwordValid}
           ></Form.Control>
+          <Form.Control.Feedback type='invalid'>
+            Passwords do not match
+          </Form.Control.Feedback>
         </Form.Group>
         <Button type='submit' variant='outline-primary'>
           Register

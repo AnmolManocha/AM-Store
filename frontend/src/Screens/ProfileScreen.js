@@ -25,6 +25,9 @@ function ProfileScreen() {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
+  const passwordMatch = confirmPassword === password
+  const passwordValid = password !== '' && passwordMatch
+
   useEffect(() => {
     if (!userInfo) {
       navigate('/login')
@@ -91,6 +94,7 @@ function ProfileScreen() {
               placeholder='Enter your password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              isValid={passwordValid}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId='confirmPassword' className='pb-3'>
@@ -100,7 +104,12 @@ function ProfileScreen() {
               placeholder='Confirm Password'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              isInvalid={!passwordMatch}
+              isValid={passwordValid}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>
+              Passwords do not match
+            </Form.Control.Feedback>
           </Form.Group>
           <Button type='submit' variant='outline-primary'>
             Update

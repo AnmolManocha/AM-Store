@@ -76,7 +76,7 @@ function ShippingScreen() {
           ></Form.Control>
         </Form.Group>
         <Button type='submit' variant='primary'>
-          Proceed
+          Continue
         </Button>
       </Form>
     </FormContainer>
