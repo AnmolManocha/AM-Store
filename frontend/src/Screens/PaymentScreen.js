@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,9 +13,11 @@ function PaymentScreen() {
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
-  if (!shippingAddress) {
-    navigate('/shipping')
-  }
+  useEffect(() => {
+    if (!shippingAddress.address) {
+      navigate('/shipping')
+    }
+  }, [navigate, shippingAddress])
 
   const [paymentMethod, setPaymentMethod] = useState('PayPal')
 
@@ -31,9 +33,7 @@ function PaymentScreen() {
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group>
-          <Form.Label as='legend'>
-            Select Method
-          </Form.Label>
+          <Form.Label as='legend'>Select Method</Form.Label>
           <Col>
             <Form.Check
               type='radio'

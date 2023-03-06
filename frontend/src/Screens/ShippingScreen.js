@@ -37,6 +37,7 @@ function ShippingScreen() {
             placeholder='Address'
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='city' className='pb-3'>
@@ -46,6 +47,7 @@ function ShippingScreen() {
             placeholder='City'
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='state' className='pb-3'>
@@ -55,6 +57,7 @@ function ShippingScreen() {
             placeholder='State'
             value={state}
             onChange={(e) => setState(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='zipcode' className='pb-3'>
@@ -64,6 +67,7 @@ function ShippingScreen() {
             placeholder='Zipcode'
             value={zipcode}
             onChange={(e) => setZipcode(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='country' className='pb-3'>
@@ -73,6 +77,7 @@ function ShippingScreen() {
             placeholder='Country'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Button type='submit' variant='primary'>
