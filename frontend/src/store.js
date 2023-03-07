@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 import { cartReducers } from './reducers/cartReducers'
-import { orderCreateReducers } from './reducers/orderReducers'
+import {
+  orderCreateReducers,
+  orderDetailsReducers,
+  orderPayReducers,
+} from './reducers/orderReducers'
 import {
   productDetailsReducer,
   productListReducer,
@@ -35,6 +39,8 @@ const store = configureStore({
     userDetails: userDetailsReducer,
     userUpdateProfile: userUpdateProfileReducer,
     orderCreate: orderCreateReducers,
+    orderDetails: orderDetailsReducers,
+    orderPay: orderPayReducers,
   },
   preloadedState: {
     cart: {
