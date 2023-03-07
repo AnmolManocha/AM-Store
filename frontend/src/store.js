@@ -4,6 +4,7 @@ import { cartReducers } from './reducers/cartReducers'
 import {
   orderCreateReducers,
   orderDetailsReducers,
+  orderListUserReducer,
   orderPayReducers,
 } from './reducers/orderReducers'
 import {
@@ -41,6 +42,7 @@ const store = configureStore({
     orderCreate: orderCreateReducers,
     orderDetails: orderDetailsReducers,
     orderPay: orderPayReducers,
+    orderListUser: orderListUserReducer,
   },
   preloadedState: {
     cart: {
