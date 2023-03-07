@@ -17,6 +17,7 @@ import axios from 'axios'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import UserListScreen from './Screens/UserListScreen'
 import UserEditScreen from './Screens/UserEditScreen'
+import ProductListScreen from './Screens/ProductListScreen'
 
 function App() {
   const [clientID, setClientID] = useState('')
@@ -54,6 +55,7 @@ function App() {
                   <Route path='/order/:id' element={<OrderScreen />} />
                   <Route path='/admin/users' element={<UserListScreen />} />
                   <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
+                  <Route path='/admin/products' element={<ProductListScreen />} />
                 </Routes>
               </Container>
             </main>
