@@ -8,6 +8,7 @@ import {
   orderPayReducers,
 } from './reducers/orderReducers'
 import {
+  productDeleteReducer,
   productDetailsReducer,
   productListReducer,
 } from './reducers/productReducers'
@@ -37,6 +38,7 @@ const store = configureStore({
   reducer: {
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    productDelete: productDeleteReducer,
     cart: cartReducers,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
