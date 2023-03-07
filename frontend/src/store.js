@@ -14,6 +14,7 @@ import {
 import {
   userDeleteReducer,
   userDetailsReducer,
+  userEditReducer,
   userListReducer,
   userLoginReducer,
   userRegisterReducer,
@@ -42,6 +43,7 @@ const store = configureStore({
     userDetails: userDetailsReducer,
     userList: userListReducer,
     userDelete: userDeleteReducer,
+    userEdit: userEditReducer,
     userUpdateProfile: userUpdateProfileReducer,
     orderCreate: orderCreateReducers,
     orderDetails: orderDetailsReducers,
