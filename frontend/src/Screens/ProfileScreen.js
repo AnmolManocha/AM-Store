@@ -38,12 +38,12 @@ function ProfileScreen() {
       navigate('/login?redirect=/profile')
     } else {
       if (!user) {
-        dispatch(listUserOrders())
         dispatch(getUserDetails('profile'))
       } else {
         setName(userInfo.name)
         setEmail(userInfo.email)
       }
+      dispatch(listUserOrders())
     }
   }, [dispatch, navigate, userInfo, user, success])
 
