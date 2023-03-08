@@ -7,6 +7,7 @@ import {
   orderListUserReducer,
   orderListReducer,
   orderPayReducers,
+  orderDeliverReducers,
 } from './reducers/orderReducers'
 import {
   productDeleteReducer,
@@ -55,6 +56,7 @@ const store = configureStore({
     orderCreate: orderCreateReducers,
     orderDetails: orderDetailsReducers,
     orderPay: orderPayReducers,
+    orderDeliver: orderDeliverReducers,
     orderListUser: orderListUserReducer,
     orderList: orderListReducer,
   },
