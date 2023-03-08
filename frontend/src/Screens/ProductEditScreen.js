@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
-import { listProductDetails } from '../actions/productActions'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { listProductDetails, updateProduct } from '../actions/productActions'
 import FormContainer from '../components/FormContainer'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
 function ProductEditScreen() {
   const params = useParams()
@@ -19,27 +20,51 @@ function ProductEditScreen() {
   const [countInStock, setCountInStock] = useState(0)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
 
+  const productUpdate = useSelector((state) => state.productUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate
+
   useEffect(() => {
-    if (!product.name || product._id !== productId) {
-      dispatch(listProductDetails(productId))
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
+      navigate('/admin/products')
     } else {
-      setName(product.name)
-      setDescription(product.description)
-      setPrice(product.price)
-      setImage(product.image)
-      setBrand(product.brand)
-      setCategory(product.category)
-      setCountInStock(product.countInStock)
+      if (!product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId))
+      } else {
+        setName(product.name)
+        setDescription(product.description)
+        setPrice(product.price)
+        setImage(product.image)
+        setBrand(product.brand)
+        setCategory(product.category)
+        setCountInStock(product.countInStock)
+      }
     }
-  }, [dispatch, product, productId])
+  }, [dispatch, navigate, product, productId, successUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    //Edit action
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        description,
+        countInStock,
+      })
+    )
   }
 
   return (
@@ -49,6 +74,8 @@ function ProductEditScreen() {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
