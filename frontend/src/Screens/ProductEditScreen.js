@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { listProductDetails, updateProduct } from '../actions/productActions'
@@ -18,6 +19,7 @@ function ProductEditScreen() {
   const [brand, setBrand] = useState('')
   const [category, setCategory] = useState('')
   const [countInStock, setCountInStock] = useState(0)
+  const [uploading, setUploading] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -67,6 +69,26 @@ function ProductEditScreen() {
     )
   }
 
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+      const { data } = await axios.post('/api/upload', formData, config)
+      setImage(data)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
+
   return (
     <>
       <Link to='/admin/products' className='btn btn-primary my-3'>
@@ -82,7 +104,7 @@ function ProductEditScreen() {
           <Message variant='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name' className='pb-3'>
+            <Form.Group controlid='name' className='pb-3'>
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type='name'
@@ -93,7 +115,7 @@ function ProductEditScreen() {
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId='price' className='pb-3'>
+            <Form.Group controlid='price' className='pb-3'>
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type='number'
@@ -102,7 +124,7 @@ function ProductEditScreen() {
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId='countInStock' className='pb-3'>
+            <Form.Group controlid='countInStock' className='pb-3'>
               <Form.Label>Count in Stock</Form.Label>
               <Form.Control
                 type='number'
@@ -111,7 +133,7 @@ function ProductEditScreen() {
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId='image' className='pb-3'>
+            <Form.Group controlid='image' className='pb-3'>
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type='text'
@@ -119,8 +141,16 @@ function ProductEditScreen() {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.Control
+                type='file'
+                id='image-file'
+                label='Choose file'
+                custom
+                onChange={uploadFileHandler}
+              />
+              {uploading && <Loader />}
             </Form.Group>
-            <Form.Group controlId='brand' className='pb-3'>
+            <Form.Group controlid='brand' className='pb-3'>
               <Form.Label>Brand</Form.Label>
               <Form.Control
                 type='text'
@@ -129,7 +159,7 @@ function ProductEditScreen() {
                 onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId='brand' className='pb-3'>
+            <Form.Group controlid='brand' className='pb-3'>
               <Form.Label>Brand</Form.Label>
               <Form.Control
                 type='text'
@@ -138,7 +168,7 @@ function ProductEditScreen() {
                 onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId='category' className='pb-3'>
+            <Form.Group controlid='category' className='pb-3'>
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type='text'
@@ -147,7 +177,7 @@ function ProductEditScreen() {
                 onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId='description' className='pb-3'>
+            <Form.Group controlid='description' className='pb-3'>
               <Form.Label>Description</Form.Label>
               <Form.Control
                 type='text'
