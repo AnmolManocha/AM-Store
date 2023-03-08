@@ -5,6 +5,7 @@ import {
   orderCreateReducers,
   orderDetailsReducers,
   orderListUserReducer,
+  orderListReducer,
   orderPayReducers,
 } from './reducers/orderReducers'
 import {
@@ -55,6 +56,7 @@ const store = configureStore({
     orderDetails: orderDetailsReducers,
     orderPay: orderPayReducers,
     orderListUser: orderListUserReducer,
+    orderList: orderListReducer,
   },
   preloadedState: {
     cart: {

@@ -19,6 +19,7 @@ import UserListScreen from './Screens/UserListScreen'
 import UserEditScreen from './Screens/UserEditScreen'
 import ProductListScreen from './Screens/ProductListScreen'
 import ProductEditScreen from './Screens/ProductEditScreen'
+import OrderListScreen from './Screens/OrderListScreen'
 
 function App() {
   const [clientID, setClientID] = useState('')
@@ -58,6 +59,7 @@ function App() {
                   <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
                   <Route path='/admin/products' element={<ProductListScreen />} />
                   <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
+                  <Route path='/admin/orders' element={<OrderListScreen />} />
                 </Routes>
               </Container>
             </main>
