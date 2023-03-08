@@ -15,6 +15,7 @@ import {
   productCreateReducer,
   productListReducer,
   productUpdateReducer,
+  productReviewCreateReducer,
 } from './reducers/productReducers'
 import {
   userDeleteReducer,
@@ -45,6 +46,7 @@ const store = configureStore({
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
+    productReviewCreate: productReviewCreateReducer,
     cart: cartReducers,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
