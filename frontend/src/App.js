@@ -36,10 +36,15 @@ function App() {
     }
   }, [])
 
+  const initialOptions = {
+    'client-id': clientID,
+    currency: 'USD',
+  }
+
   return (
     <>
       {clientID && (
-        <PayPalScriptProvider options={{ 'client-id': clientID }}>
+        <PayPalScriptProvider options={initialOptions}>
           <Router>
             <Header />
             <main className='py-3'>

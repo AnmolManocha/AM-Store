@@ -7,6 +7,7 @@ import { listUserOrders } from '../actions/orderActions'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 function ProfileScreen() {
   const [name, setName] = useState('')
@@ -37,7 +38,8 @@ function ProfileScreen() {
     if (!userInfo) {
       navigate('/login?redirect=/profile')
     } else {
-      if (!user) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
       } else {
         setName(userInfo.name)

@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/Message'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import { USER_DETAILS_RESET } from '../constants/userConstants'
 
 function PlaceOrderScreen() {
   const dispatch = useDispatch()
@@ -12,16 +14,19 @@ function PlaceOrderScreen() {
   const cart = useSelector((state) => state.cart)
 
   // Calc Prices
-  cart.itemsPrice = cart.cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2)
+  }
+  cart.itemsPrice = addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   )
-
-  cart.shippingPrice = cart.itemsPrice >= 1000 ? 0 : 100
-
-  cart.taxPrice = Number((0.18 * cart.itemsPrice).toFixed(2))
-
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
+  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
+  cart.totalPrice = (
+    Number(cart.itemsPrice) +
+    Number(cart.shippingPrice) +
+    Number(cart.taxPrice)
+  ).toFixed(2)
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
@@ -29,8 +34,10 @@ function PlaceOrderScreen() {
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`)
+      dispatch({ type: USER_DETAILS_RESET })
+      dispatch({ type: ORDER_CREATE_RESET })
     }
-  }, [navigate, success, order])
+  }, [navigate, success, order, dispatch])
 
   const placeOrderHandler = () => {
     dispatch(
@@ -130,13 +137,13 @@ function PlaceOrderScreen() {
               <ListGroup.Item>
                 <Row>
                   <Col>GST (18%)</Col>
-                  <Col>₹{cart.taxPrice.toFixed(2)}</Col>
+                  <Col>₹{cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>₹{cart.totalPrice.toFixed(2)}</Col>
+                  <Col>₹{cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
