@@ -45,7 +45,22 @@ function App() {
             <main className='py-3'>
               <Container>
                 <Routes>
-                  <Route path='/' element={<HomeScreen />} />
+                  <Route path='/' element={<HomeScreen />} exact />
+                  <Route
+                    path='/search/:keyword'
+                    element={<HomeScreen />}
+                    exact
+                  />
+                  <Route
+                    path='/page/:pageNumber'
+                    element={<HomeScreen />}
+                    exact
+                  />
+                  <Route
+                    path='/search/:keyword/page/:pageNumber'
+                    element={<HomeScreen />}
+                    exact
+                  />
                   <Route path='/product/:id' element={<ProductScreen />} />
                   <Route path='/cart/:id?' element={<CartScreen />} />
                   <Route path='/login' element={<LoginScreen />} />
@@ -56,11 +71,25 @@ function App() {
                   <Route path='/placeorder' element={<PlaceOrderScreen />} />
                   <Route path='/order/:id' element={<OrderScreen />} />
                   <Route path='/admin/users' element={<UserListScreen />} />
-                  <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
-                  <Route path='/admin/products' element={<ProductListScreen />} />
-                  <Route path='/admin/product/:id/edit' element={<ProductEditScreen />} />
+                  <Route
+                    path='/admin/user/:id/edit'
+                    element={<UserEditScreen />}
+                  />
+                  <Route
+                    path='/admin/products'
+                    element={<ProductListScreen />}
+                    exact
+                  />
+                  <Route
+                    path='/admin/products/page/:pageNumber'
+                    element={<ProductListScreen />}
+                    exact
+                  />
+                  <Route
+                    path='/admin/product/:id/edit'
+                    element={<ProductEditScreen />}
+                  />
                   <Route path='/admin/orders' element={<OrderListScreen />} />
-                  <Route path='/search/:keyword' element={<HomeScreen />} />
                 </Routes>
               </Container>
             </main>
